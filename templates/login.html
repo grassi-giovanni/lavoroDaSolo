@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Club</title>
+    <title>Login - Book Club</title>
     <style>body {
         font-family: 'Arial', sans-serif;
         line-height: 1.6;
@@ -86,19 +86,7 @@
     }</style>
 </head>
 <body>
-    <header>
-        <h1>Benvenuto al Book Club</h1>
-        <nav>
-            {% if current_user.is_authenticated %}
-                <span>Ciao, {{ current_user.username }}!</span>
-                <a href="{{ url_for('logout') }}">Logout</a>
-            {% else %}
-                <a href="{{ url_for('login') }}">Login</a>
-                <a href="{{ url_for('register') }}">Registrati</a>
-            {% endif %}
-        </nav>
-    </header>
-
+    <h1>Login</h1>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul class="flashes">
@@ -108,41 +96,13 @@
             </ul>
         {% endif %}
     {% endwith %}
-
-    {% if current_user.is_authenticated %}
-        <h2>Aggiungi un nuovo libro:</h2>
-        <form action="{{ url_for('add_book') }}" method="POST">
-            <label for="title">Titolo:</label>
-            <input type="text" id="title" name="title" required>
-            <label for="author">Autore:</label>
-            <input type="text" id="author" name="author" required>
-            <button type="submit">Aggiungi</button>
-        </form>
-    {% endif %}
-
-    <h2>Libri nella lista:</h2>
-    <ul>
-        {% for book in books %}
-            <li>
-                <strong>{{ book.title }}</strong> di {{ book.author }} 
-                {% if book.read %}
-                    - <em>Letto</em>
-                {% elif book.user_id == current_user.id %}
-                    - <a href="{{ url_for('mark_read', book_id=book.id) }}">Segna come letto</a>
-                {% endif %}
-                <ul>
-                    {% for comment in book.comments %}
-                        <li>{{ comment.user.username }}: {{ comment.text }}</li>
-                    {% endfor %}
-                </ul>
-                {% if current_user.is_authenticated %}
-                    <form action="{{ url_for('add_comment', book_id=book.id) }}" method="POST">
-                        <input type="text" name="comment" required placeholder="Aggiungi un commento">
-                        <button type="submit">Invia</button>
-                    </form>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+    <form method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Login</button>
+    </form>
+    <p>Non hai un account? <a href="{{ url_for('register') }}">Registrati</a></p>
 </body>
 </html>
