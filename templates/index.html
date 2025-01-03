@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Club</title>
+    <style>body {
+        font-family: 'Arial', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f4f4f4;
+    }
+    
+    h1, h2 {
+        color: #2c3e50;
+    }
+    
+    h1 {
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+    }
+    
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    li {
+        background-color: #fff;
+        margin-bottom: 10px;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    li strong {
+        color: #3498db;
+    }
+    
+    li em {
+        color: #27ae60;
+        font-style: normal;
+        font-weight: bold;
+    }
+    
+    form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 5px;
+        color: #2c3e50;
+    }
+    
+    input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    
+    button {
+        background-color: #3498db;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+        background-color: #2980b9;
+    }</style>
+</head>
+<body>
+    <h1>Benvenuto al Book Club</h1>
+    <h2>Libri nella tua lista:</h2>
+    <ul>
+        {% for book in books %}
+        <li>
+            <strong>{{ book.title }}</strong> di {{ book.author }} 
+            {% if book.read %}
+            - <em>Letto</em>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    <h2>Aggiungi un nuovo libro:</h2>
+    <form action="/add" method="POST">
+        <label for="title">Titolo:</label>
+        <input type="text" id="title" name="title" required>
+        <br>
+        <label for="author">Autore:</label>
+        <input type="text" id="author" name="author" required>
+        <br>
+        <button type="submit">Aggiungi</button>
+    </form>
+</body>
+</html>
